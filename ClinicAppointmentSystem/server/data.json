@@ -1,0 +1,118 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "name": "Administrator",
+      "role": "ADMIN",
+      "email": "admin@csu.local",
+      "phone": ""
+    },
+    {
+      "username": "kylle",
+      "password": "kylle123",
+      "name": "Kylle Cruz",
+      "role": "CLIENT",
+      "email": "kylle.mercado@csu.local",
+      "phone": "09669474682"
+    },
+    {
+      "username": "drsantos",
+      "password": "drpass",
+      "name": "Dr. Santos",
+      "role": "DENTIST",
+      "email": "kyllemae.mercado@carsu.edu.ph",
+      "phone": "09669474683"
+    },
+    {
+      "username": "drreyes",
+      "password": "drpass",
+      "name": "Dr. Reyes",
+      "role": "PHYSICIAN",
+      "email": "dr.reyes@csu.local",
+      "phone": "+15550000012"
+    },
+    {
+      "username": "kim",
+      "password": "kimpass",
+      "name": "kim mongado",
+      "role": "CLIENT",
+      "email": "kim@gmail.com",
+      "phone": "09669474682"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "A-1764233527777",
+      "patientName": "Kylle Cruz",
+      "patientEmail": "kylle.mercado@csu.local",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-11-27",
+      "time": "08:51",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764234114481",
+      "patientName": "kim mongado",
+      "patientEmail": "kim@gmail.com",
+      "patientPhone": "09669474682",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr.Reyes",
+      "date": "2025-11-27",
+      "time": "08:01",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764237114409",
+      "patientName": "Kylle Cruz",
+      "patientEmail": "kylle.mercado@csu.local",
+      "patientPhone": "09669474682",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr.Reyes",
+      "date": "2025-11-28",
+      "time": "08:40",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764238283903",
+      "patientName": "Kylle Cruz",
+      "patientEmail": "kylle.mercado@csu.local",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr.Santos",
+      "date": "2025-11-29",
+      "time": "11:11",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764238388878",
+      "patientName": "Kylle Cruz",
+      "patientEmail": "kylle.mercado@csu.local",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr.Reyes",
+      "date": "2025-11-30",
+      "time": "10:13",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764238444188",
+      "patientName": "Kylle Cruz",
+      "patientEmail": "kyllemae.mercado@carsu.edu.ph",
+      "patientPhone": "09669474682",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr.Reyes",
+      "date": "2025-11-27",
+      "time": "10:13",
+      "status": "Scheduled",
+      "notes": ""
+    }
+  ]
+}
