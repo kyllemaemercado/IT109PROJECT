@@ -129,6 +129,32 @@ app.get('/api/appointments', async (req, res) => {
   res.json({ appointments: list });
 });
 
+app.get('/api/patients', async (req, res) => {
+  const data = await readData();
+  const appointments = data.appointments || [];
+  
+  // Create a map of unique patients with their statuses
+  const patientsMap = new Map();
+  
+  appointments.forEach(appt => {
+    if (!patientsMap.has(appt.patientName)) {
+      patientsMap.set(appt.patientName, {
+        name: appt.patientName,
+        email: appt.patientEmail,
+        phone: appt.patientPhone,
+        status: appt.status,
+      });
+    } else {
+      // Update status to the latest appointment status
+      const existing = patientsMap.get(appt.patientName);
+      existing.status = appt.status;
+    }
+  });
+  
+  const patients = Array.from(patientsMap.values());
+  res.json(patients);
+});
+
 app.post('/api/appointments', async (req, res) => {
   const { patientName, patientEmail, patientPhone, providerRole, providerName, date, time } = req.body;
   if (!patientName || !providerRole || !date || !time) return res.status(400).json({ message: 'Missing fields' });

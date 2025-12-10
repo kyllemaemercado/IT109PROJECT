@@ -39,6 +39,14 @@
       "role": "CLIENT",
       "email": "kim@gmail.com",
       "phone": "09669474682"
+    },
+    {
+      "username": "mer",
+      "password": "password",
+      "name": "merkules",
+      "role": "CLIENT",
+      "email": "merkules@gmail.com",
+      "phone": "095555555"
     }
   ],
   "appointments": [
@@ -51,7 +59,7 @@
       "providerName": "Dr. Santos",
       "date": "2025-11-27",
       "time": "08:51",
-      "status": "Cancelled",
+      "status": "Approved",
       "notes": ""
     },
     {
@@ -63,8 +71,8 @@
       "providerName": "Dr.Reyes",
       "date": "2025-11-27",
       "time": "08:01",
-      "status": "Cancelled",
-      "notes": ""
+      "status": "Rejected",
+      "notes": "Schedule conflict"
     },
     {
       "id": "A-1764237114409",
@@ -75,7 +83,7 @@
       "providerName": "Dr.Reyes",
       "date": "2025-11-28",
       "time": "08:40",
-      "status": "Cancelled",
+      "status": "Approved",
       "notes": ""
     },
     {
@@ -112,6 +120,42 @@
       "date": "2025-11-27",
       "time": "10:13",
       "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1764238500000",
+      "patientName": "Maria Santos",
+      "patientEmail": "maria@example.com",
+      "patientPhone": "09669474700",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-05",
+      "time": "14:00",
+      "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1764238600000",
+      "patientName": "John Doe",
+      "patientEmail": "john@example.com",
+      "patientPhone": "09669474701",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr.Reyes",
+      "date": "2025-12-06",
+      "time": "15:30",
+      "status": "Rejected",
+      "notes": "Doctor unavailable"
+    },
+    {
+      "id": "A-1765354524200",
+      "patientName": "merkules",
+      "patientEmail": "merkules@gmail.com",
+      "patientPhone": "095555555",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Reyes",
+      "date": "2025-12-11",
+      "time": "09:20",
+      "status": "Approved",
       "notes": ""
     }
   ]

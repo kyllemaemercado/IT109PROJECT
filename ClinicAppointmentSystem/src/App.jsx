@@ -6,6 +6,7 @@ import Dashboard from "./Dashboard";
 import BookAppointment from "./BookAppointment";
 import MyAppointments from "./MyAppointments";
 import Patients from "./Patients";
+import AdminDataAnalysis from "./AdminDataAnalysis";
 
 const App = () => {
   // store user object { username, name, role }
@@ -342,8 +343,7 @@ const App = () => {
             <Patients user={user} />
           )}
 
-          {currentPage === "analysis" && <DataAnalysis batches={batches} />}
-        </main>
+        {currentPage === "analysis" && <AdminDataAnalysis />}        </main>
       </div>
 
       {showForm && (

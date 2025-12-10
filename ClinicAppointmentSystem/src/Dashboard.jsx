@@ -342,14 +342,36 @@ const Dashboard = ({ batches, setBatches, user, appointments, setAppointments, o
             {user?.role === 'CLIENT' ? 'My Appointments' : 'Schedule & Records'}
           </h2>
 
-          {user?.role === 'CLIENT' ? (
-            <table
+          {user?.role === 'ADMIN' && (
+            <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#F0F9FF', borderRadius: '8px', borderLeft: '4px solid #0B4F36' }}>
+              <p style={{ margin: 0, fontSize: '14px', color: '#0B4F36', fontWeight: '600' }}>
+                Total Records: <strong>{appointments?.length ?? 0}</strong> appointments | 
+                <span style={{ color: '#22c55e', marginLeft: '10px' }}>Approved: {adminAppointmentStats.approved}</span> | 
+                <span style={{ color: '#ef4444', marginLeft: '10px' }}>Rejected: {adminAppointmentStats.rejected}</span>
+              </p>
+            </div>
+          )}
+
+          {/* Scrollable Table Container */}
+          <div
+            className="schedule-records-scroller"
             style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              fontSize: "13px",
+              overflowX: 'auto',
+              overflowY: 'scroll',
+              maxHeight: '450px',
+              border: '1px solid #E5E7EB',
+              borderRadius: '10px',
+              scrollBehavior: 'smooth',
+              background: '#fff',
             }}
           >
+            <table
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: "13px",
+              }}
+            >
             <thead>
               {user?.role === 'CLIENT' ? (
                 <tr style={{ backgroundColor: "#F0B400", color: "white" }}>
@@ -459,16 +481,54 @@ const Dashboard = ({ batches, setBatches, user, appointments, setAppointments, o
                 ) : (
                   appointments.map((a) => (
                     <tr key={a.id} style={{ borderBottom: "1px solid #E5E7EB" }}>
-                      <td style={{ padding: "12px", fontWeight: "600" }}>{a.id}</td>
-                      <td style={{ padding: "12px" }}>{a.patientName}</td>
-                      <td style={{ padding: "12px" }}>{a.patientEmail}</td>
-                      <td style={{ padding: "12px" }}>{a.patientPhone}</td>
-                      <td style={{ padding: "12px" }}>{a.providerName} ({a.providerRole})</td>
-                      <td style={{ padding: "12px" }}>{a.date}</td>
-                      <td style={{ padding: "12px" }}>{a.time}</td>
-                      <td style={{ padding: "12px" }}>{a.status}</td>
+                      <td style={{ padding: "12px", fontWeight: "600", fontSize: '12px' }}>{a.id}</td>
                       <td style={{ padding: "12px" }}>
-                        <button onClick={() => handleDeleteAppointment(a.id)} style={{ backgroundColor: "#E63946", color: "white", border: "none", padding: "6px 12px", borderRadius: "10px", cursor: "pointer", fontWeight: "600" }}>Delete</button>
+                        <div style={{ fontWeight: '600', color: '#1F2937' }}>{a.patientName}</div>
+                        <div style={{ fontSize: '11px', color: '#6B7280' }}>ID: {a.patientEmail}</div>
+                      </td>
+                      <td style={{ padding: "12px", fontSize: '12px' }}>{a.patientEmail}</td>
+                      <td style={{ padding: "12px", fontSize: '12px' }}>{a.patientPhone}</td>
+                      <td style={{ padding: "12px" }}>
+                        <div style={{ fontWeight: '600' }}>{a.providerName}</div>
+                        <div style={{ fontSize: '11px', color: '#6B7280' }}>({a.providerRole})</div>
+                      </td>
+                      <td style={{ padding: "12px", fontSize: '12px' }}>{a.date}</td>
+                      <td style={{ padding: "12px", fontSize: '12px' }}>{a.time}</td>
+                      <td style={{ padding: "12px" }}>
+                        <span
+                          style={{
+                            display: 'inline-block',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '11px',
+                            fontWeight: '600',
+                            backgroundColor:
+                              a.status === 'Approved'
+                                ? '#D4F7D0'
+                                : a.status === 'Rejected'
+                                ? '#FFD5D5'
+                                : a.status === 'Scheduled'
+                                ? '#DBEAFE'
+                                : a.status === 'Cancelled'
+                                ? '#E5E7EB'
+                                : '#F3F4F6',
+                            color:
+                              a.status === 'Approved'
+                                ? '#0B7D2A'
+                                : a.status === 'Rejected'
+                                ? '#9B1A1A'
+                                : a.status === 'Scheduled'
+                                ? '#0369A1'
+                                : a.status === 'Cancelled'
+                                ? '#6B7280'
+                                : '#4B5563',
+                          }}
+                        >
+                          {a.status}
+                        </span>
+                      </td>
+                      <td style={{ padding: "12px" }}>
+                        <button onClick={() => handleDeleteAppointment(a.id)} style={{ backgroundColor: "#E63946", color: "white", border: "none", padding: "6px 12px", borderRadius: "10px", cursor: "pointer", fontWeight: "600", fontSize: '12px' }}>Delete</button>
                       </td>
                     </tr>
                   ))
@@ -505,11 +565,53 @@ const Dashboard = ({ batches, setBatches, user, appointments, setAppointments, o
               )}
             </tbody>
           </table>
-          ) : null}
+          </div>
         </div>
       </main>
     </div>
   );
 };
+
+// Add custom scrollbar styling
+const scrollableContainerStyle = `
+  .schedule-records-scroller {
+    scrollBehavior: smooth;
+  }
+  
+  .schedule-records-scroller::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .schedule-records-scroller::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+  }
+  
+  .schedule-records-scroller::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #0B4F36, #083d2a);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  .schedule-records-scroller::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #083d2a, #062e22);
+  }
+
+  .schedule-records-scroller table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+
+  .schedule-records-scroller table tbody tr:hover {
+    background-color: #f0f4f8;
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = scrollableContainerStyle;
+  document.head.appendChild(styleSheet);
+}
 
 export default Dashboard;

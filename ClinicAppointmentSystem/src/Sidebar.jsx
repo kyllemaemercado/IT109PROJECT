@@ -44,11 +44,12 @@ const getMenuForRole = (role) => {
       { id: "records", label: "Records", icon: <FiDatabase /> },
     ];
   }
-  // fallback admin menu
-  return [
-    { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
-    { id: "patients", label: "Patients", icon: <FiUserCheck /> },
-  ];
+  // fallback admin menu ✅ WITH DATA ANALYSIS
+return [
+  { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
+  { id: "patients", label: "Patients", icon: <FiUserCheck /> },
+  { id: "analysis", label: "Data Analysis", icon: <FiBarChart2 /> }, // ✅ ADDED
+];
 };
 
 const Sidebar = ({ currentPage, setCurrentPage, onLogout, user }) => {
