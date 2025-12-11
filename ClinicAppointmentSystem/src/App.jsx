@@ -7,6 +7,7 @@ import BookAppointment from "./BookAppointment";
 import MyAppointments from "./MyAppointments";
 import Patients from "./Patients";
 import AdminDataAnalysis from "./AdminDataAnalysis";
+import DoctorRecords from "./DoctorRecords";
 
 const App = () => {
   // store user object { username, name, role }
@@ -309,8 +310,6 @@ const App = () => {
 
           {currentPage === "eligible" && <EligibleStudents batches={batches} />}
 
-          {currentPage === "records" && <BatchRecords batches={batches} />}
-
           {currentPage === "book" && (
             <BookAppointment
               user={user}
@@ -341,6 +340,10 @@ const App = () => {
 
           {currentPage === "patients" && (
             <Patients user={user} />
+          )}
+
+          {currentPage === "doctors" && (
+            <DoctorRecords user={user} />
           )}
 
         {currentPage === "analysis" && <AdminDataAnalysis />}        </main>

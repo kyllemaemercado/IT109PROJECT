@@ -5,6 +5,14 @@ const fs = require('fs-extra');
 const path = require('path');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const { 
+  transporter: emailTransporter, 
+  sendAppointmentToProvider, 
+  sendApprovalToPatient, 
+  sendRejectionToPatient 
+} = require('./services/emailService');
+const { sendAppointmentApprovalViaSims, sendAppointmentRejectionViaSims } = require('./services/simsService');
+
 let twilioClient = null;
 try {
   const Twilio = require('twilio');
@@ -13,11 +21,12 @@ try {
   }
 } catch (err) {
   // twilio not installed - will log messages to console
+  console.log('Twilio not configured:', err.message);
 }
 
 const app = express();
 const DATA_FILE = path.join(__dirname, 'data.json');
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000; // Changed to 5000 to match your email routes
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -65,33 +74,140 @@ const writeData = async (data) => {
   await writeData(data);
 })();
 
-// Setup nodemailer transporter
-let transporter = null;
-(async () => {
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || 587),
-      secure: false,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    });
-  } else {
-    // Create an ethereal account for development if not provided
-    try {
-      const testAccount = await nodemailer.createTestAccount();
-      transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: { user: testAccount.user, pass: testAccount.pass },
-      });
-      console.log('Using Ethereal SMTP account for emails');
-    } catch (err) {
-      console.error('Failed to create test email account', err);
-    }
-  }
-})();
+// ========== EMAIL TEST ROUTE ==========
+app.get('/test-email', async (req, res) => {
+  try {
+    // Use the transporter from emailService
+    const testEmail = {
+      from: process.env.SMTP_FROM || process.env.SMTP_USER || 'test@example.com',
+      to: process.env.SMTP_USER || 'test@example.com',
+      subject: '✅ CSU Clinic Email API Test - SUCCESS',
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2 style="color: #0B4F36;">🎉 CSU Clinic Email API is Working!</h2>
+          <p>If you received this, your Nodemailer setup is correct.</p>
+          <div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+            <p><strong>From:</strong> ${process.env.SMTP_FROM || 'Not configured'}</p>
+            <p><strong>To:</strong> ${process.env.SMTP_USER || 'Not configured'}</p>
+          </div>
+          <p>You can now use the appointment email functions.</p>
+        </div>
+      `,
+    };
 
-// Basic API
+    if (!emailTransporter) {
+      return res.status(500).json({
+        success: false,
+        error: 'Email transporter not initialized',
+        details: 'Check your email service configuration'
+      });
+    }
+
+    const info = await emailTransporter.sendMail(testEmail);
+    
+    res.json({
+      success: true,
+      message: 'Test email sent successfully!',
+      messageId: info.messageId
+    });
+    
+  } catch (error) {
+    console.error('❌ Test email error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      details: 'Check SMTP credentials in .env'
+    });
+  }
+});
+
+// ========== EMAIL API ENDPOINTS ==========
+// 1. Send appointment notification (when patient books)
+app.post('/api/appointments/notify-provider', async (req, res) => {
+  try {
+    const { providerEmail, appointment } = req.body;
+    
+    const result = await sendAppointmentToProvider(providerEmail, appointment);
+    
+    if (result) {
+      res.json({
+        success: true,
+        message: 'Provider notified successfully',
+        messageId: result.messageId
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send notification'
+      });
+    }
+  } catch (error) {
+    console.error('Error notifying provider:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// 2. Send approval to patient (when provider approves)
+app.post('/api/appointments/approve', async (req, res) => {
+  try {
+    const { patientEmail, appointment } = req.body;
+    
+    const result = await sendApprovalToPatient(patientEmail, appointment);
+    
+    if (result) {
+      res.json({
+        success: true,
+        message: 'Approval email sent to patient',
+        messageId: result.messageId
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send approval email'
+      });
+    }
+  } catch (error) {
+    console.error('Error sending approval:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// 3. Send rejection to patient (when provider rejects)
+app.post('/api/appointments/reject', async (req, res) => {
+  try {
+    const { patientEmail, appointment, reason } = req.body;
+    
+    const result = await sendRejectionToPatient(patientEmail, appointment, reason);
+    
+    if (result) {
+      res.json({
+        success: true,
+        message: 'Rejection email sent to patient',
+        messageId: result.messageId
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send rejection email'
+      });
+    }
+  } catch (error) {
+    console.error('Error sending rejection:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// ========== EXISTING API ROUTES ==========
 app.post('/api/signup', async (req, res) => {
   const { username, password, name, role, email, phone } = req.body;
   if (!username || !password || !name || !role) {
@@ -180,17 +296,8 @@ app.post('/api/appointments', async (req, res) => {
     try {
       const providerUser = data.users.find(u => u.role === providerRole && u.name === newAppt.providerName);
       const providerEmail = providerUser?.email || (process.env.DEFAULT_PROVIDER_EMAIL || null);
-      if (providerEmail && transporter) {
-        const mailRes = await transporter.sendMail({
-          from: process.env.SMTP_FROM || 'kyllemae.mercado@carsu.edu.ph',
-          to: providerEmail,
-          subject: `New appointment: ${newAppt.patientName}`,
-          text: `A new appointment has been booked by ${newAppt.patientName} on ${newAppt.date} at ${newAppt.time}. Provider: ${newAppt.providerName}`,
-        });
-        console.log('Email sent to provider', mailRes.messageId);
-        if (nodemailer.getTestMessageUrl) {
-          console.log('Email preview URL:', nodemailer.getTestMessageUrl(mailRes));
-        }
+      if (providerEmail) {
+        await sendAppointmentToProvider(providerEmail, newAppt);
       } else {
         console.log('No provider email configured; not sending email. providerUser:', providerUser?.username);
       }
@@ -211,33 +318,45 @@ app.put('/api/appointments/:id', async (req, res) => {
   await writeData(data);
   res.json({ success: true, appointment: data.appointments[idx] });
 
-  // If appointment status changed to Confirmed, SMS patient if possible
+  // If appointment status changed, send appropriate notifications
   (async () => {
     try {
       const appt = data.appointments[idx];
       const patientPhone = appt.patientPhone;
       const patientEmail = appt.patientEmail;
-      // Send SMS if status changed to Confirmed, or Approved, or Rejected and we have twilio configured
+      
+      // Send notifications based on status change
       if (updates && updates.status) {
         const newStatus = updates.status.toLowerCase();
+        
+        // Send SMS if status changed to Confirmed, Approved, or Rejected and we have Twilio configured
         if ((newStatus === 'confirmed' || newStatus === 'approved' || newStatus === 'rejected') && patientPhone && twilioClient && process.env.TWILIO_FROM) {
           let body = `Your appointment on ${appt.date} at ${appt.time} with ${appt.providerName} is ${updates.status}.`;
           if (updates.notes) body += ` Reason: ${updates.notes}`;
           await twilioClient.messages.create({ body, from: process.env.TWILIO_FROM, to: patientPhone });
           console.log('SMS sent to patient', patientPhone);
         }
-        // send email to patient for Approved/Rejected or Confirmed
-        if ((newStatus === 'approved' || newStatus === 'rejected' || newStatus === 'confirmed') && patientEmail && transporter) {
-          let subject = `Appointment ${updates.status}: ${appt.patientName}`;
-          let text = `Your appointment on ${appt.date} at ${appt.time} with ${appt.providerName} has been ${updates.status}.`;
-          if (updates.notes) text += `\n\nNotes: ${updates.notes}`;
-          const mailRes = await transporter.sendMail({ from: process.env.SMTP_FROM || 'kyllemae.mercado@carsu.edu.ph', to: patientEmail, subject, text });
-          console.log('Email sent to patient', mailRes.messageId);
-          if (nodemailer.getTestMessageUrl) {
-            console.log('Email preview URL:', nodemailer.getTestMessageUrl(mailRes));
+        
+        // Send email notifications using email service
+        if (patientEmail) {
+          if (newStatus === 'approved') {
+            // Send approval email and SIMS notification
+            await sendApprovalToPatient(patientEmail, appt);
+            await sendAppointmentApprovalViaSims(patientEmail, appt);
+            console.log('Approval email and SIMS notification sent to patient', patientEmail);
+          } else if (newStatus === 'rejected') {
+            // Send rejection email and SIMS notification
+            await sendRejectionToPatient(patientEmail, appt, updates.notes);
+            await sendAppointmentRejectionViaSims(patientEmail, appt, updates.notes);
+            console.log('Rejection email and SIMS notification sent to patient', patientEmail);
+          } else if (newStatus === 'confirmed') {
+            // Send confirmation email (generic update)
+            await sendApprovalToPatient(patientEmail, appt);
+            console.log('Confirmation email sent to patient', patientEmail);
           }
         }
       }
+      
       // If appointment was rejected, persist 'notes' if passed
       if (updates && updates.status && updates.status.toLowerCase() === 'rejected' && updates.notes) {
         data.appointments[idx].notes = updates.notes;
@@ -257,4 +376,8 @@ app.delete('/api/appointments/:id', async (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(PORT, () => console.log(`CSU Clinic server listening on ${PORT}`));
+// ========== START SERVER ==========
+app.listen(PORT, () => {
+  console.log(`🚀 CSU Clinic server listening on port ${PORT}`);
+  console.log(`📧 Test email route: http://localhost:${PORT}/test-email`);
+});

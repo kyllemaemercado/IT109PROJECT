@@ -41,13 +41,13 @@ const getMenuForRole = (role) => {
       { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
       { id: "schedule", label: "Schedule", icon: <FiFilter /> },
       { id: "patients", label: "Patients", icon: <FiUserCheck /> },
-      { id: "records", label: "Records", icon: <FiDatabase /> },
     ];
   }
   // fallback admin menu ✅ WITH DATA ANALYSIS
 return [
   { id: "dashboard", label: "Dashboard", icon: <FiHome /> },
   { id: "patients", label: "Patients", icon: <FiUserCheck /> },
+  { id: "doctors", label: "Doctor Records", icon: <FiDatabase /> },
   { id: "analysis", label: "Data Analysis", icon: <FiBarChart2 /> }, // ✅ ADDED
 ];
 };

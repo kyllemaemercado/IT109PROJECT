@@ -358,7 +358,7 @@ const Dashboard = ({ batches, setBatches, user, appointments, setAppointments, o
             style={{
               overflowX: 'auto',
               overflowY: 'scroll',
-              maxHeight: '450px',
+              maxHeight: '500px',
               border: '1px solid #E5E7EB',
               borderRadius: '10px',
               scrollBehavior: 'smooth',
@@ -538,7 +538,6 @@ const Dashboard = ({ batches, setBatches, user, appointments, setAppointments, o
                 processedBatches.length === 0 ? (
                   <tr>
                     <td colSpan="8" style={{ padding: "20px", textAlign: "center" }}>
-                      No batches yet. Filter students to create a batch.
                     </td>
                   </tr>
                 ) : (

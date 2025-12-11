@@ -29,7 +29,7 @@
       "password": "drpass",
       "name": "Dr. Reyes",
       "role": "PHYSICIAN",
-      "email": "dr.reyes@csu.local",
+      "email": "dr.reyes@gmail.com",
       "phone": "+15550000012"
     },
     {
@@ -53,7 +53,7 @@
     {
       "id": "A-1764233527777",
       "patientName": "Kylle Cruz",
-      "patientEmail": "kylle.mercado@csu.local",
+      "patientEmail": "kylle.mercado@gmail.com",
       "patientPhone": "09669474682",
       "providerRole": "DENTIST",
       "providerName": "Dr. Santos",
@@ -71,7 +71,7 @@
       "providerName": "Dr.Reyes",
       "date": "2025-11-27",
       "time": "08:01",
-      "status": "Rejected",
+      "status": "Approved",
       "notes": "Schedule conflict"
     },
     {
@@ -119,8 +119,8 @@
       "providerName": "Dr.Reyes",
       "date": "2025-11-27",
       "time": "10:13",
-      "status": "Scheduled",
-      "notes": ""
+      "status": "Rejected",
+      "notes": "out of town"
     },
     {
       "id": "A-1764238500000",
@@ -156,6 +156,78 @@
       "date": "2025-12-11",
       "time": "09:20",
       "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1765357676686",
+      "patientName": "kim mongado",
+      "patientEmail": "kim@gmail.com",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Reyes",
+      "date": "2025-12-19",
+      "time": "17:07",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765424890529",
+      "patientName": "kim mongado",
+      "patientEmail": "kim@gmail.com",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-12",
+      "time": "07:01",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765425402330",
+      "patientName": "kim mongado",
+      "patientEmail": "",
+      "patientPhone": "",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-11",
+      "time": "13:00",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765425731645",
+      "patientName": "kim mongado",
+      "patientEmail": "",
+      "patientPhone": "",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-11",
+      "time": "13:05",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765426233954",
+      "patientName": "kim mongado",
+      "patientEmail": "kim@gmail.com",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-11",
+      "time": "13:10",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765426501255",
+      "patientName": "kim mongado",
+      "patientEmail": "kim@gmail.com",
+      "patientPhone": "09669474682",
+      "providerRole": "DENTIST",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-11",
+      "time": "13:15",
+      "status": "Scheduled",
       "notes": ""
     }
   ]
