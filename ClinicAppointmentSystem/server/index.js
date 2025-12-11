@@ -62,7 +62,7 @@ const writeData = async (data) => {
       { username: 'admin', password: 'admin123', name: 'Administrator', role: 'ADMIN', email: 'admin@csu.local', phone: '' },
       { username: 'kylle', password: 'kylle123', name: 'Kylle Cruz', role: 'CLIENT', email: 'kylle.mercado@csu.local', phone: '09669474682' },
       { username: 'drsantos', password: 'drpass', name: 'Dr. Santos', role: 'DENTIST', email: 'kyllemae.mercado@carsu.edu.ph', phone: '09669474683' },
-      { username: 'drreyes', password: 'drpass', name: 'Dr. Reyes', role: 'PHYSICIAN', email: 'dr.reyes@csu.local', phone: '09669474684' },
+      { username: 'drreyes', password: 'drpass', name: 'Dr. Reyes', role: 'PHYSICIAN', email: 'kimayeshaanne.mongado@carsu.edu.ph', phone: '09669474684' },
     ];
   }
   if (!data.appointments) {
@@ -289,22 +289,33 @@ app.post('/api/appointments', async (req, res) => {
   };
   data.appointments.push(newAppt);
   await writeData(data);
-  res.json({ success: true, appointment: newAppt });
-
-  // Send email to provider (if available)
-  (async () => {
-    try {
-      const providerUser = data.users.find(u => u.role === providerRole && u.name === newAppt.providerName);
-      const providerEmail = providerUser?.email || (process.env.DEFAULT_PROVIDER_EMAIL || null);
-      if (providerEmail) {
-        await sendAppointmentToProvider(providerEmail, newAppt);
-      } else {
-        console.log('No provider email configured; not sending email. providerUser:', providerUser?.username);
+  
+  // Send email to provider (if available) - wait for it to complete
+  try {
+    // Try to find provider by role AND name first
+    let providerUser = data.users.find(u => u.role === providerRole && u.name === newAppt.providerName);
+    
+    // If not found by name, try to find by role only (as fallback)
+    if (!providerUser) {
+      providerUser = data.users.find(u => u.role === providerRole);
+      if (providerUser) {
+        console.log(`⚠️ Provider name not found, using first available ${providerRole}:`, providerUser.name);
       }
-    } catch (err) {
-      console.error('Failed to send provider email', err);
     }
-  })();
+    
+    const providerEmail = providerUser?.email || (process.env.DEFAULT_PROVIDER_EMAIL || null);
+    if (providerEmail) {
+      console.log(`📧 Sending appointment notification to doctor: ${providerEmail}`);
+      await sendAppointmentToProvider(providerEmail, newAppt);
+      console.log(`✅ Email sent successfully to ${providerEmail}`);
+    } else {
+      console.log('⚠️ No provider email found for:', { providerRole, providerName: newAppt.providerName });
+    }
+  } catch (err) {
+    console.error('❌ Failed to send provider email:', err.message);
+  }
+  
+  res.json({ success: true, appointment: newAppt, message: 'Appointment booked and doctor notified' });
 });
 
 app.put('/api/appointments/:id', async (req, res) => {
