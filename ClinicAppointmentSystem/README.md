@@ -22,13 +22,14 @@ This project now contains a minimal Express backend in the `server/` folder used
 To run the backend in development mode:
 
 1. Open a second terminal:
+
 ```powershell
 cd server
 npm install
 npm run dev
 ```
 
-2. Frontend expects backend at http://localhost:4000. The Frontend will call `/api/` endpoints for users and appointments.
+2. Frontend expects backend at http://localhost:5000. The Frontend will call `/api/` endpoints for users and appointments.
 
 Environment variables for notifications (optional):
 
@@ -36,6 +37,7 @@ Environment variables for notifications (optional):
 - TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM — if set, Twilio will be used to send SMS to patients when providers confirm appointments.
 
 Create a `.env` file in the `server/` folder with the values, for example:
+
 ```
 SMTP_HOST=smtp.example.com
 SMTP_PORT=587

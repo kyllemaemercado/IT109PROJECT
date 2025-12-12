@@ -14,41 +14,42 @@ const LoginPage = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:4000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
       if (!res.ok) {
         const data = await res.json();
-        return alert(data.message || 'Login failed');
+        return alert(data.message || "Login failed");
       }
       const { user } = await res.json();
       onLogin(user);
     } catch (err) {
       console.error(err);
-      alert('Server not reachable');
+      alert("Server not reachable");
     }
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (!username || !password || !name) return alert('Please fill all fields.');
+    if (!username || !password || !name)
+      return alert("Please fill all fields.");
     try {
-      const res = await fetch('http://localhost:4000/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, name, role, email, phone }),
       });
       if (!res.ok) {
         const data = await res.json();
-        return alert(data.message || 'Signup failed');
+        return alert(data.message || "Signup failed");
       }
       const data = await res.json();
       onLogin(data.user);
     } catch (err) {
       console.error(err);
-      alert('Server not reachable');
+      alert("Server not reachable");
     }
   };
 
@@ -89,9 +90,9 @@ const LoginPage = ({ onLogin }) => {
             letterSpacing: "1px",
             lineHeight: "1.2",
             marginBottom: "18px",
-            textShadow: 
-                  "2px 2px 4px rgba(0, 0, 0, 0.9),  /* bright white glow */" +
-                   "-2px -2px 4px rgba(255, 255, 255, 0.7)",
+            textShadow:
+              "2px 2px 4px rgba(0, 0, 0, 0.9),  /* bright white glow */" +
+              "-2px -2px 4px rgba(255, 255, 255, 0.7)",
           }}
         >
           CSU CLINIC <br />
@@ -109,23 +110,25 @@ const LoginPage = ({ onLogin }) => {
             textShadow: "0px 0px 6px rgba(0,0,0,0.5)",
           }}
         >
-               Trusted Care, Right on Campus!
+          Trusted Care, Right on Campus!
           <br />
-          Get the care you need, right here at CSU.
-          Our friendly medic and staff is here to support your health and well-being.
-          Whether you're feeling under the weather or just need a check-up for dental health, we're here for you.
+          Get the care you need, right here at CSU. Our friendly medic and staff
+          is here to support your health and well-being. Whether you're feeling
+          under the weather or just need a check-up for dental health, we're
+          here for you.
         </p>
       </div>
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "10px 15px",
-        backgroundColor: "rgba(255, 255, 255, 0.2)",
-        borderRadius: "10px",
-        maxWidth: "350px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.2)"
-      }}>
-      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "10px 15px",
+          backgroundColor: "rgba(255, 255, 255, 0.2)",
+          borderRadius: "10px",
+          maxWidth: "350px",
+          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+        }}
+      ></div>
       {/* RIGHT SIDE – GLASS BOX */}
       <div
         style={{
@@ -187,7 +190,10 @@ const LoginPage = ({ onLogin }) => {
           </h1>
 
           {/* FORM */}
-          <form onSubmit={isSignUp ? handleSignUp : handleLogin} style={{ textAlign: "left" }}>
+          <form
+            onSubmit={isSignUp ? handleSignUp : handleLogin}
+            style={{ textAlign: "left" }}
+          >
             <label
               style={{
                 color: "white",
@@ -218,12 +224,84 @@ const LoginPage = ({ onLogin }) => {
 
             {isSignUp && (
               <>
-                <label style={{ color: "white", fontWeight: "600", fontSize: "14px", fontFamily: "Poppins, sans-serif" }}>Full Name</label>
-                <input type="text" placeholder="Enter full name" value={name} onChange={(e) => setName(e.target.value)} style={{ width: "100%", padding: "12px 15px", borderRadius: "10px", marginBottom: "18px", border: "1px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.8)", outline: "none", fontSize: "14px" }} />
-                <label style={{ color: "white", fontWeight: "600", fontSize: "14px", fontFamily: "Poppins, sans-serif" }}>Email</label>
-                <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: "100%", padding: "12px 15px", borderRadius: "10px", marginBottom: "18px", border: "1px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.8)", outline: "none", fontSize: "14px" }} />
-                <label style={{ color: "white", fontWeight: "600", fontSize: "14px", fontFamily: "Poppins, sans-serif" }}>Phone</label>
-                <input type="text" placeholder="Enter your phone" value={phone} onChange={(e) => setPhone(e.target.value)} style={{ width: "100%", padding: "12px 15px", borderRadius: "10px", marginBottom: "18px", border: "1px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.8)", outline: "none", fontSize: "14px" }} />
+                <label
+                  style={{
+                    color: "white",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    marginBottom: "18px",
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    background: "rgba(255,255,255,0.8)",
+                    outline: "none",
+                    fontSize: "14px",
+                  }}
+                />
+                <label
+                  style={{
+                    color: "white",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    marginBottom: "18px",
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    background: "rgba(255,255,255,0.8)",
+                    outline: "none",
+                    fontSize: "14px",
+                  }}
+                />
+                <label
+                  style={{
+                    color: "white",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "12px 15px",
+                    borderRadius: "10px",
+                    marginBottom: "18px",
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    background: "rgba(255,255,255,0.8)",
+                    outline: "none",
+                    fontSize: "14px",
+                  }}
+                />
               </>
             )}
 
@@ -255,13 +333,32 @@ const LoginPage = ({ onLogin }) => {
               }}
             />
 
-            <label style={{ color: "white", fontWeight: "600", fontSize: "14px", fontFamily: "Poppins, sans-serif" }}>Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)} style={{ width: "100%", padding: "12px 15px", borderRadius: "8px", marginBottom: "18px", border: "1px solid rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.9)" }}>
+            <label
+              style={{
+                color: "white",
+                fontWeight: "600",
+                fontSize: "14px",
+                fontFamily: "Poppins, sans-serif",
+              }}
+            >
+              Role
+            </label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 15px",
+                borderRadius: "8px",
+                marginBottom: "18px",
+                border: "1px solid rgba(255,255,255,0.5)",
+                background: "rgba(255,255,255,0.9)",
+              }}
+            >
               <option value="CLIENT">CLIENT</option>
               <option value="DENTIST">DENTIST</option>
               <option value="PHYSICIAN">PHYSICIAN</option>
               <option value="ADMIN">ADMIN</option>
-              
             </select>
 
             <button
@@ -281,7 +378,7 @@ const LoginPage = ({ onLogin }) => {
               onMouseOver={(e) => (e.target.style.backgroundColor = "#4F874A")}
               onMouseOut={(e) => (e.target.style.backgroundColor = "#62A55B")}
             >
-              {isSignUp ? 'Sign Up' : 'Sign In'}
+              {isSignUp ? "Sign Up" : "Sign In"}
             </button>
           </form>
 
@@ -293,16 +390,35 @@ const LoginPage = ({ onLogin }) => {
               color: "white",
               opacity: 0.85,
             }}
-          >
-          </p>
-          <p style={{ textAlign: 'center', marginTop: 8 }}>
+          ></p>
+          <p style={{ textAlign: "center", marginTop: 8 }}>
             {isSignUp ? (
               <>
-                Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); setIsSignUp(false); }} style={{ color: '#9DDFB4' }}>Sign In</a>
+                Already have an account?{" "}
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSignUp(false);
+                  }}
+                  style={{ color: "#9DDFB4" }}
+                >
+                  Sign In
+                </a>
               </>
             ) : (
               <>
-                Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); setIsSignUp(true); }} style={{ color: '#9DDFB4' }}>Sign Up</a>
+                Don't have an account?{" "}
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSignUp(true);
+                  }}
+                  style={{ color: "#9DDFB4" }}
+                >
+                  Sign Up
+                </a>
               </>
             )}
           </p>

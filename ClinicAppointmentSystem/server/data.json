@@ -47,6 +47,78 @@
       "role": "CLIENT",
       "email": "merkules@gmail.com",
       "phone": "095555555"
+    },
+    {
+      "username": "asfush.2001",
+      "password": "qwerty123",
+      "name": "asfushdf uhsaduif",
+      "role": "CLIENT",
+      "email": "asfush_2001@gmail.com",
+      "phone": "47234723748"
+    },
+    {
+      "username": "wills.mills1",
+      "password": "qwerty12345",
+      "name": "Wills Mills",
+      "role": "PHYSICIAN",
+      "email": "kaisoo.4now@gmail.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "qwerty.asdf123",
+      "password": "qwerty12345",
+      "name": "Qwerty Asdf",
+      "role": "PHYSICIAN",
+      "email": "pelifel.0309@gmail.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "alicia.keys19",
+      "password": "qwerty12345",
+      "name": "Alicia Keys",
+      "role": "CLIENT",
+      "email": "kaisoo.4now@gmail.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "wills.mills2000",
+      "password": "12345qwerty",
+      "name": "Wills Mills",
+      "role": "PHYSICIAN",
+      "email": "pelifel.0309@gmail.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "alicia.keys2000",
+      "password": "qwerty12345",
+      "name": "Alicia Keys",
+      "role": "CLIENT",
+      "email": "kaisoo.4now@gmail.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "wills.mills2025",
+      "password": "qwerty12345",
+      "name": "Wills Mills",
+      "role": "PHYSICIAN",
+      "email": "pelifel.0309@gmail.com",
+      "phone": "09481657186"
+    },
+    {
+      "username": "alicia.keys2001",
+      "password": "12345qwerty",
+      "name": "Alicia Keys",
+      "role": "CLIENT",
+      "email": "alicia.keys2000#@test.com",
+      "phone": "09072377486"
+    },
+    {
+      "username": "anita.rose2000",
+      "password": "qwerty12345",
+      "name": "Anita Rose",
+      "role": "CLIENT",
+      "email": "anita.rose2000@test.com",
+      "phone": "09481657186"
     }
   ],
   "appointments": [
@@ -527,6 +599,162 @@
       "providerName": "Dr. Reyes",
       "date": "2025-12-14",
       "time": "15:00",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765461767701",
+      "patientName": "asfushdf uhsaduif",
+      "patientEmail": "asfush_2001@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-19",
+      "time": "13:06",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765461776133",
+      "patientName": "asfushdf uhsaduif",
+      "patientEmail": "asfush_2001@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-19",
+      "time": "13:06",
+      "status": "Rejected",
+      "notes": "Nangancel"
+    },
+    {
+      "id": "A-1765461777197",
+      "patientName": "asfushdf uhsaduif",
+      "patientEmail": "asfush_2001@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-19",
+      "time": "13:06",
+      "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1765461777410",
+      "patientName": "asfushdf uhsaduif",
+      "patientEmail": "asfush_2001@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-19",
+      "time": "13:06",
+      "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1765461777575",
+      "patientName": "asfushdf uhsaduif",
+      "patientEmail": "asfush_2001@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Santos",
+      "date": "2025-12-19",
+      "time": "13:06",
+      "status": "Rejected",
+      "notes": "No Office"
+    },
+    {
+      "id": "A-1765498845846",
+      "patientName": "Alicia Keys",
+      "patientEmail": "kaisoo.4now@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Mills Wills",
+      "date": "2025-12-16",
+      "time": "11:26",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765499474544",
+      "patientName": "Alicia Keys",
+      "patientEmail": "kaisoo.4now@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Dr. Wills Mills",
+      "date": "2025-12-15",
+      "time": "09:37",
+      "status": "Cancelled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765513222030",
+      "patientName": "Anita Rose",
+      "patientEmail": "anita.rose2000@test.com",
+      "patientPhone": "09481657186",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Wills Mills",
+      "date": "2025-12-13",
+      "time": "15:22",
+      "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1765515315586",
+      "patientName": "Anita Rose",
+      "patientEmail": "anita.rose2000@test.com",
+      "patientPhone": "09481657186",
+      "providerRole": "DENTIST",
+      "providerName": "Wills Mills",
+      "date": "2025-12-18",
+      "time": "14:58",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765515316953",
+      "patientName": "Anita Rose",
+      "patientEmail": "anita.rose2000@test.com",
+      "patientPhone": "09481657186",
+      "providerRole": "DENTIST",
+      "providerName": "Wills Mills",
+      "date": "2025-12-18",
+      "time": "14:58",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765515759448",
+      "patientName": "Alicia Keys",
+      "patientEmail": "kaisoo.4now@gmail.com",
+      "patientPhone": "+639072377486",
+      "providerRole": "DENTIST",
+      "providerName": "Wills Mills",
+      "date": "2025-12-19",
+      "time": "15:05",
+      "status": "Scheduled",
+      "notes": ""
+    },
+    {
+      "id": "A-1765516419667",
+      "patientName": "Alicia Keys",
+      "patientEmail": "kaisoo.4now@gmail.com",
+      "patientPhone": "+639072377486",
+      "providerRole": "PHYSICIAN",
+      "providerName": "Wills Mills",
+      "date": "2025-12-25",
+      "time": "16:15",
+      "status": "Approved",
+      "notes": ""
+    },
+    {
+      "id": "A-1765516450570",
+      "patientName": "Alicia Keys",
+      "patientEmail": "kaisoo.4now@gmail.com",
+      "patientPhone": "09072377486",
+      "providerRole": "DENTIST",
+      "providerName": "Wills Mills",
+      "date": "2025-12-12",
+      "time": "13:14",
       "status": "Scheduled",
       "notes": ""
     }

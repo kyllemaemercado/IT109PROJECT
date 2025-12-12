@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
+import google from "googleapis"; // Correct for ES Modules
 import dotenv from "dotenv";
 import twilio from "twilio";
 
@@ -19,7 +19,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 oAuth2Client.setCredentials({
-  refresh_token: process.env.GMAIL_REFRESH_TOKEN
+  refresh_token: process.env.GMAIL_REFRESH_TOKEN,
 });
 
 // --- TWILIO SETUP ---
@@ -39,12 +39,12 @@ app.post("/api/send-email", async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "kaasmongado@gmail.com", 
+        user: "kaasmongado@gmail.com",
         clientId: process.env.GMAIL_CLIENT_ID,
         clientSecret: process.env.GMAIL_CLIENT_SECRET,
         refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-        accessToken: accessToken
-      }
+        accessToken: accessToken,
+      },
     });
 
     const mailOptions = {
@@ -55,12 +55,11 @@ app.post("/api/send-email", async (req, res) => {
         <h2>New Appointment Request</h2>
         <p>Patient: ${patientName}</p>
         <p>Date: ${appointmentDate}</p>
-      `
+      `,
     };
 
     await transport.sendMail(mailOptions);
     res.json({ message: "Email sent to medic successfully" });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Email sending failed" });
@@ -71,19 +70,19 @@ app.post("/api/send-email", async (req, res) => {
 app.post("/api/send-sms", async (req, res) => {
   const { phoneNumber, status } = req.body;
 
-  const message = status === "approved"
-    ? "Your appointment has been APPROVED."
-    : "Your appointment has been CANCELED.";
+  const message =
+    status === "approved"
+      ? "Your appointment has been APPROVED."
+      : "Your appointment has been CANCELED.";
 
   try {
     await smsClient.messages.create({
       body: message,
       from: process.env.TWILIO_PHONE,
-      to: phoneNumber
+      to: phoneNumber,
     });
 
     res.json({ message: "SMS sent to patient successfully" });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "SMS sending failed" });
@@ -94,4 +93,3 @@ app.post("/api/send-sms", async (req, res) => {
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
-    

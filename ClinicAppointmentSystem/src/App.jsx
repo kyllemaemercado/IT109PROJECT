@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RejectionModal from './RejectionModal';
+import RejectionModal from "./RejectionModal";
 import LoginPage from "./LoginPage";
 import Sidebar from "./Sidebar";
 import Dashboard from "./Dashboard";
@@ -42,7 +42,7 @@ const App = () => {
   // centralized status / modal / toast for appointment actions
   const [rejectionModalOpen, setRejectionModalOpen] = useState(false);
   const [rejectionTarget, setRejectionTarget] = useState(null);
-  const [toast, setToast] = useState({ message: '', visible: false });
+  const [toast, setToast] = useState({ message: "", visible: false });
 
   // Login
   const handleLogin = (userObj) => setUser(userObj);
@@ -56,9 +56,11 @@ const App = () => {
       if (!user) return setAppointments([]);
       try {
         const q = new URLSearchParams();
-        q.set('role', user.role);
-        if (user.role === 'CLIENT') q.set('name', user.name);
-        const res = await fetch(`http://localhost:4000/api/appointments?${q.toString()}`);
+        q.set("role", user.role);
+        if (user.role === "CLIENT") q.set("name", user.name);
+        const res = await fetch(
+          `http://localhost:5000/api/appointments?${q.toString()}`
+        );
         if (!res.ok) return;
         const data = await res.json();
         setAppointments(data.appointments);
@@ -71,33 +73,41 @@ const App = () => {
 
   const showToast = (msg, ms = 3000) => {
     setToast({ message: msg, visible: true });
-    setTimeout(() => setToast({ message: '', visible: false }), ms);
-  }
+    setTimeout(() => setToast({ message: "", visible: false }), ms);
+  };
 
   const updateAppointment = async (id, updates) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/appointments/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updates) });
-      if (!res.ok) throw new Error('Failed to update appointment');
+      const res = await fetch(`http://localhost:5000/api/appointments/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      });
+      if (!res.ok) throw new Error("Failed to update appointment");
       const data = await res.json();
-      setAppointments((prev) => (prev || []).map((a) => (a.id === id ? data.appointment : a)));
-      showToast('Appointment updated');
+      setAppointments((prev) =>
+        (prev || []).map((a) => (a.id === id ? data.appointment : a))
+      );
+      showToast("Appointment updated");
       return data.appointment;
     } catch (err) {
       console.error(err);
-      showToast('Failed to update appointment');
+      showToast("Failed to update appointment");
       throw err;
     }
   };
 
   const deleteAppointment = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/appointments/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete');
+      const res = await fetch(`http://localhost:5000/api/appointments/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Failed to delete");
       setAppointments((prev) => (prev || []).filter((a) => a.id !== id));
-      showToast('Appointment deleted');
+      showToast("Appointment deleted");
     } catch (err) {
       console.error(err);
-      showToast('Failed to delete appointment');
+      showToast("Failed to delete appointment");
       throw err;
     }
   };
@@ -114,7 +124,7 @@ const App = () => {
 
   const rejectAppointment = async (id, reason) => {
     try {
-      await updateAppointment(id, { status: 'Rejected', notes: reason });
+      await updateAppointment(id, { status: "Rejected", notes: reason });
       closeRejectModal();
     } catch (err) {
       console.error(err);
@@ -123,14 +133,18 @@ const App = () => {
 
   const approveAppointment = async (id) => {
     try {
-      await updateAppointment(id, { status: 'Approved' });
-    } catch (err) { console.error(err); }
+      await updateAppointment(id, { status: "Approved" });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const cancelAppointment = async (id) => {
     try {
-      await updateAppointment(id, { status: 'Cancelled' });
-    } catch (err) { console.error(err); }
+      await updateAppointment(id, { status: "Cancelled" });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Save batch + date & time
@@ -294,7 +308,6 @@ const App = () => {
               onCancelAppointment={cancelAppointment}
             />
           )}
-
           {currentPage === "filter" && (
             <FilterData
               students={students}
@@ -307,16 +320,13 @@ const App = () => {
               onStudentAdd={handleStudentSubmit}
             />
           )}
-
           {currentPage === "eligible" && <EligibleStudents batches={batches} />}
-
           {currentPage === "book" && (
             <BookAppointment
               user={user}
               onBook={(appt) => setAppointments((prev) => [...prev, appt])}
             />
           )}
-
           {currentPage === "myappointments" && (
             <MyAppointments
               user={user}
@@ -329,7 +339,6 @@ const App = () => {
               onCancelAppointment={cancelAppointment}
             />
           )}
-
           {currentPage === "schedule" && (
             <MyAppointments
               user={user}
@@ -337,16 +346,10 @@ const App = () => {
               setAppointments={setAppointments}
             />
           )}
-
-          {currentPage === "patients" && (
-            <Patients user={user} />
-          )}
-
-          {currentPage === "doctors" && (
-            <DoctorRecords user={user} />
-          )}
-
-        {currentPage === "analysis" && <AdminDataAnalysis />}        </main>
+          {currentPage === "patients" && <Patients user={user} />}
+          {currentPage === "doctors" && <DoctorRecords user={user} />}
+          {currentPage === "analysis" && <AdminDataAnalysis />}{" "}
+        </main>
       </div>
 
       {showForm && (
@@ -356,11 +359,28 @@ const App = () => {
         />
       )}
       {rejectionModalOpen && (
-        <RejectionModal open={rejectionModalOpen} onClose={closeRejectModal} onSubmit={(note) => rejectAppointment(rejectionTarget, note)} />
+        <RejectionModal
+          open={rejectionModalOpen}
+          onClose={closeRejectModal}
+          onSubmit={(note) => rejectAppointment(rejectionTarget, note)}
+        />
       )}
       {/* Toast */}
       {toast.visible && (
-        <div style={{ position: 'fixed', right: 20, bottom: 20, background: '#0B4F36', color: 'white', padding: '10px 16px', borderRadius: 8, boxShadow: '0 3px 8px rgba(0,0,0,0.2)' }}>{toast.message}</div>
+        <div
+          style={{
+            position: "fixed",
+            right: 20,
+            bottom: 20,
+            background: "#0B4F36",
+            color: "white",
+            padding: "10px 16px",
+            borderRadius: 8,
+            boxShadow: "0 3px 8px rgba(0,0,0,0.2)",
+          }}
+        >
+          {toast.message}
+        </div>
       )}
     </div>
   );

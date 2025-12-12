@@ -29,11 +29,17 @@ const AdminDataAnalysis = () => {
       })
       .then((data) => {
         const appointments = data.appointments || [];
-        
+
         // Count statuses
-        const approved = appointments.filter((a) => a.status === "Approved").length;
-        const rejected = appointments.filter((a) => a.status === "Rejected").length;
-        const scheduled = appointments.filter((a) => a.status === "Scheduled").length;
+        const approved = appointments.filter(
+          (a) => a.status === "Approved"
+        ).length;
+        const rejected = appointments.filter(
+          (a) => a.status === "Rejected"
+        ).length;
+        const scheduled = appointments.filter(
+          (a) => a.status === "Scheduled"
+        ).length;
 
         setApprovedCount(approved);
         setRejectedCount(rejected);
@@ -57,8 +63,10 @@ const AdminDataAnalysis = () => {
   const statusByProviderData = appointmentsList.reduce((acc, appt) => {
     const existing = acc.find((item) => item.name === appt.providerRole);
     if (existing) {
-      if (appt.status === "Approved") existing.approved = (existing.approved || 0) + 1;
-      if (appt.status === "Rejected") existing.rejected = (existing.rejected || 0) + 1;
+      if (appt.status === "Approved")
+        existing.approved = (existing.approved || 0) + 1;
+      if (appt.status === "Rejected")
+        existing.rejected = (existing.rejected || 0) + 1;
     } else {
       acc.push({
         name: appt.providerRole,
@@ -71,31 +79,119 @@ const AdminDataAnalysis = () => {
 
   return (
     <div style={{ padding: 24, fontFamily: "Poppins, sans-serif" }}>
-      <h2 style={{ fontWeight: 700, marginBottom: 24, fontSize: "24px", color: "#1F2937" }}>
+      <h2
+        style={{
+          fontWeight: 700,
+          marginBottom: 24,
+          fontSize: "24px",
+          color: "#1F2937",
+        }}
+      >
         Admin Data Analysis
       </h2>
 
       {error && (
-        <div style={{ background: "#fee", padding: 12, borderRadius: 8, marginBottom: 20, color: "#c00", fontFamily: "Poppins, sans-serif", fontSize: "14px" }}>
+        <div
+          style={{
+            background: "#fee",
+            padding: 12,
+            borderRadius: 8,
+            marginBottom: 20,
+            color: "#c00",
+            fontFamily: "Poppins, sans-serif",
+            fontSize: "14px",
+          }}
+        >
           Error: {error}
         </div>
       )}
 
       {/* KPI CARDS */}
-      <div style={{ display: "flex", gap: 15, marginBottom: 25, flexWrap: "wrap" }}>
+      <div
+        style={{ display: "flex", gap: 15, marginBottom: 25, flexWrap: "wrap" }}
+      >
         <div style={{ ...cardStyle, padding: 15, minWidth: 180 }}>
-          <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#6B7280", margin: 0, marginBottom: "6px" }}>Total Approved Appointments</h4>
-          {loading ? <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p> : <h1 style={{ fontSize: "24px", fontWeight: "700", color: "#22c55e", margin: 0 }}>{approvedCount}</h1>}
+          <h4
+            style={{
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "#6B7280",
+              margin: 0,
+              marginBottom: "6px",
+            }}
+          >
+            Total Approved Appointments
+          </h4>
+          {loading ? (
+            <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p>
+          ) : (
+            <h1
+              style={{
+                fontSize: "24px",
+                fontWeight: "700",
+                color: "#22c55e",
+                margin: 0,
+              }}
+            >
+              {approvedCount}
+            </h1>
+          )}
         </div>
 
         <div style={{ ...cardStyle, padding: 15, minWidth: 180 }}>
-          <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#6B7280", margin: 0, marginBottom: "6px" }}>Total Rejected Appointments</h4>
-          {loading ? <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p> : <h1 style={{ fontSize: "24px", fontWeight: "700", color: "#ef4444", margin: 0 }}>{rejectedCount}</h1>}
+          <h4
+            style={{
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "#6B7280",
+              margin: 0,
+              marginBottom: "6px",
+            }}
+          >
+            Total Rejected Appointments
+          </h4>
+          {loading ? (
+            <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p>
+          ) : (
+            <h1
+              style={{
+                fontSize: "24px",
+                fontWeight: "700",
+                color: "#ef4444",
+                margin: 0,
+              }}
+            >
+              {rejectedCount}
+            </h1>
+          )}
         </div>
 
         <div style={{ ...cardStyle, padding: 15, minWidth: 180 }}>
-          <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#6B7280", margin: 0, marginBottom: "6px" }}>Total Scheduled Appointments</h4>
-          {loading ? <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p> : <h1 style={{ fontSize: "24px", fontWeight: "700", color: "#3b82f6", margin: 0 }}>{scheduledCount}</h1>}
+          <h4
+            style={{
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "#6B7280",
+              margin: 0,
+              marginBottom: "6px",
+            }}
+          >
+            Total Scheduled Appointments
+          </h4>
+          {loading ? (
+            <p style={{ margin: 0, fontSize: "12px" }}>Loading...</p>
+          ) : (
+            <h1
+              style={{
+                fontSize: "24px",
+                fontWeight: "700",
+                color: "#3b82f6",
+                margin: 0,
+              }}
+            >
+              {scheduledCount}
+            </h1>
+          )}
         </div>
       </div>
 
@@ -119,7 +215,17 @@ const AdminDataAnalysis = () => {
           >
             {/* BAR CHART - Overall Status */}
             <div style={{ ...chartCard, boxShadow: "none", marginBottom: 0 }}>
-              <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#1F2937", marginBottom: "16px", margin: 0 }}>Appointment Status Overview (Bar Chart)</h3>
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "#1F2937",
+                  marginBottom: "16px",
+                  margin: 0,
+                }}
+              >
+                Appointment Status Overview (Bar Chart)
+              </h3>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={chartData}>
                   <XAxis dataKey="name" />
@@ -132,7 +238,17 @@ const AdminDataAnalysis = () => {
 
             {/* PIE CHART - Status Distribution */}
             <div style={{ ...chartCard, boxShadow: "none", marginBottom: 0 }}>
-              <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#1F2937", marginBottom: "16px", margin: 0 }}>Appointment Status Distribution (Pie Chart)</h3>
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "#1F2937",
+                  marginBottom: "16px",
+                  margin: 0,
+                }}
+              >
+                Appointment Status Distribution (Pie Chart)
+              </h3>
               <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
                   <Pie data={chartData} dataKey="value" outerRadius={90} label>
@@ -153,7 +269,17 @@ const AdminDataAnalysis = () => {
           {/* STACKED BAR CHART - By Provider */}
           {statusByProviderData.length > 0 && (
             <div style={{ ...chartCard, boxShadow: "none", marginBottom: 0 }}>
-              <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#1F2937", marginBottom: "16px", margin: 0 }}>Appointments by Provider Type (Approved vs Rejected)</h3>
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "#1F2937",
+                  marginBottom: "16px",
+                  margin: 0,
+                }}
+              >
+                Appointments by Provider Type (Approved vs Rejected)
+              </h3>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={statusByProviderData}>
                   <XAxis dataKey="name" />
@@ -172,7 +298,17 @@ const AdminDataAnalysis = () => {
       {/* Appointments Table */}
       {!loading && appointmentsList.length > 0 && (
         <div style={{ marginTop: 30 }}>
-          <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#1F2937", marginBottom: 16, margin: 0 }}>Recent Appointments</h3>
+          <h3
+            style={{
+              fontSize: "16px",
+              fontWeight: "700",
+              color: "#1F2937",
+              marginBottom: 16,
+              margin: 0,
+            }}
+          >
+            Recent Appointments
+          </h3>
           <div
             className="appointments-ticker"
             style={{
@@ -187,31 +323,134 @@ const AdminDataAnalysis = () => {
           >
             <table style={tableStyle}>
               <thead>
-                <tr style={{ borderBottom: "2px solid #e5e7eb", backgroundColor: "#f9fafb", position: "sticky", top: 0, zIndex: 10 }}>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Patient Name</th>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Provider</th>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Date</th>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Time</th>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Status</th>
-                  <th style={{ fontWeight: "600", fontSize: "13px", color: "#374151", padding: "12px 16px" }}>Notes</th>
+                <tr
+                  style={{
+                    borderBottom: "2px solid #e5e7eb",
+                    backgroundColor: "#f9fafb",
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 10,
+                  }}
+                >
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Patient Name
+                  </th>
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Provider
+                  </th>
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Date
+                  </th>
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Time
+                  </th>
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Status
+                  </th>
+                  <th
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "13px",
+                      color: "#374151",
+                      padding: "12px 16px",
+                    }}
+                  >
+                    Notes
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {appointmentsList.slice(0, 10).map((appt, idx) => (
-                  <tr 
-                    key={appt.id} 
-                    style={{ 
+                  <tr
+                    key={appt.id}
+                    style={{
                       borderBottom: "1px solid #e5e7eb",
                       backgroundColor: idx % 2 === 0 ? "#ffffff" : "#f9fafb",
                       transition: "background-color 0.3s ease",
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f3f4f6"}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = idx % 2 === 0 ? "#ffffff" : "#f9fafb"}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#f3f4f6")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        idx % 2 === 0 ? "#ffffff" : "#f9fafb")
+                    }
                   >
-                    <td style={{ fontSize: "13px", color: "#4b5563", fontWeight: "500", padding: "12px 16px" }}>{appt.patientName}</td>
-                    <td style={{ fontSize: "13px", color: "#4b5563", fontWeight: "500", padding: "12px 16px" }}>{appt.providerName}</td>
-                    <td style={{ fontSize: "13px", color: "#4b5563", fontWeight: "500", padding: "12px 16px" }}>{appt.date}</td>
-                    <td style={{ fontSize: "13px", color: "#4b5563", fontWeight: "500", padding: "12px 16px" }}>{appt.time}</td>
+                    <td
+                      style={{
+                        fontSize: "13px",
+                        color: "#4b5563",
+                        fontWeight: "500",
+                        padding: "12px 16px",
+                      }}
+                    >
+                      {appt.patientName}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: "13px",
+                        color: "#4b5563",
+                        fontWeight: "500",
+                        padding: "12px 16px",
+                      }}
+                    >
+                      {appt.providerName}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: "13px",
+                        color: "#4b5563",
+                        fontWeight: "500",
+                        padding: "12px 16px",
+                      }}
+                    >
+                      {appt.date}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: "13px",
+                        color: "#4b5563",
+                        fontWeight: "500",
+                        padding: "12px 16px",
+                      }}
+                    >
+                      {appt.time}
+                    </td>
                     <td style={{ padding: "12px 16px" }}>
                       <span
                         style={{
@@ -237,7 +476,16 @@ const AdminDataAnalysis = () => {
                         {appt.status}
                       </span>
                     </td>
-                    <td style={{ fontSize: "13px", color: "#4b5563", fontWeight: "500", padding: "12px 16px" }}>{appt.notes || "-"}</td>
+                    <td
+                      style={{
+                        fontSize: "13px",
+                        color: "#4b5563",
+                        fontWeight: "500",
+                        padding: "12px 16px",
+                      }}
+                    >
+                      {appt.notes || "-"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -339,11 +587,11 @@ const tickerStyles = `
 `;
 
 // Inject ticker styles
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style');
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
   styleSheet.textContent = tickerStyles;
-  if (!document.head.querySelector('style[data-ticker]')) {
-    styleSheet.setAttribute('data-ticker', 'true');
+  if (!document.head.querySelector("style[data-ticker]")) {
+    styleSheet.setAttribute("data-ticker", "true");
     document.head.appendChild(styleSheet);
   }
 }
