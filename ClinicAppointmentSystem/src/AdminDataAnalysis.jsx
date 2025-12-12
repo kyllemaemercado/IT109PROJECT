@@ -22,7 +22,7 @@ const AdminDataAnalysis = () => {
 
   useEffect(() => {
     // Fetch appointments data
-    fetch("http://localhost:4000/api/appointments")
+    fetch("http://localhost:5000/api/appointments")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch appointments");
         return res.json();
