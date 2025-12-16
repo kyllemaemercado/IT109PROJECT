@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "seventh-dryad-481303-r4",
+  "private_key_id": "d66edc352a73fc5af49e635e150132b5171608a2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCndJRmqYOQQf1Q\n7zhCq+wSs1IreyKiBADBhsCny82726uA60XoIJxX2erkphqX9h4ZELBc1seV/zc1\n48CYw1Q38uFnoXtZWAJGCdVUjdLbYin7LU/3+yeAs72/SswJnXIbXsY3QmMUcrDD\nxwKB5R09/OgihSFGFROK6QF630kOdrban0boKq20TtFYOC7AmX4zUG+xdFdGBp3C\n35lguTR7kWhcQT4IEqvjVZo6phSkV2qgBUi1UhyI/PLyzTz7C8yokzNK08JUyxPG\nHk4vNYM6ihSVCQokJsyydnQTW5FwV1MQYDIp0moK73BU3GLHs6C6hOJ9ee3B+LDQ\nrByrCmlzAgMBAAECggEACh9EZy5A+yPaBZ3oNzOAOiMnyOQRFF0MlKYqGBp8Lapa\nJBlUqPLrsG3GQpr9yYjBif9Vwc7j0p/SPQou1q0b9qPSVzrOI3jr7kLi59EI2WUG\nJ542EsXWPfPfeOQzEDO5tYjVj3qOVaqXH8Z0UtjAG0Kh35BPkhZtD30FL2G2305Z\ns0WCrrXUvcwh6Ab75isYrzxYfByVEzMZJ9TMA19I+7sgnHdAda5wFffiRh+4AqEe\nopBEy9gWOK/5SaXNL4hVqfx9xGIncDKADocMonXG9k9ExF7o39cIky8jQ8lwABgD\n1JV9uYnwPiwOuFAzi1gflOedgdaxr+aR09QgxFRWCQKBgQDXaCzdHJLQFUG8XtEp\ncqMgLcQRqlNBHiPygnvN1+IWeQEjIdy5be0kCS/EueiBAmHD/sClHFYp77DVaxKn\nIwss2lk9Yz1Hz93sKnq+2hfudQq6sKtfInxYwwW5AGsWpOdOlPlXQq4hYAH8uBE6\n9g7eS91IvhxLfAifjtESTxEuywKBgQDHAxbxnc7D5LjE9j43eUJnkHOJx5n7ct44\nKhDlJW6yiuimtE+V1AWv5DsUN9Cp7+KijAOCV6BoCBRAUj+WkLkbeKgoMErqKdA4\nT5qyOk2ZrVijOp/0TdQr/zoIE3F6mUo38nJvTivDBbO4BfBKQm4w5ta/fV+q9W86\njqlnlEjy+QKBgQCbHtcoB/qlxJkJKRLhET/t3WdT/V9lBmqGqnazfqK+4jbycOE9\n266pg8AVoHeR6AA1n5BllqlqG8Uxe6D8IZ1bmIYpUf0AaO38s36fT/lp7HlkhfNz\nWCdJ2G+XkXiM3wX/rgJ9V3SEblof/wHRfv6oEOPzDYzcwx6GoNdoou3RzwKBgBmy\n9XCID15Ol+mfXtNtDj0vcywUoXbOE5IvJHViyxO1SmvUlv5jHcTj9RkcSA7Z0mtp\nJz7ar/UfLfZMaLe5wp2gjB58dgAdHC1ZYkGns8Onle2mMWer8T0pPUYztJC/YM0u\nusZS0uXhQ5787VW5lF8uQAcEWqlJ/m4SZB/jDzSJAoGBAJM1Cb8MsMjkh6bGYFmZ\n2B/xHdWU9ma/L2cxfmUrG/GERyIM8zsL72e0sdbiL8MFqk8dXVNORWEk/WtU26ng\n0M7rVF8b9a422ehsSB0tUQjn1p8MYhkxl8BjdF8O4nZg0+6egDZBD0BMS6kz2FeW\nS2ja7pGSHAmPneaz5IYO54Xx\n-----END PRIVATE KEY-----\n",
+  "client_email": "csu-appointment-service@seventh-dryad-481303-r4.iam.gserviceaccount.com",
+  "client_id": "110799041205214430190",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/csu-appointment-service%40seventh-dryad-481303-r4.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

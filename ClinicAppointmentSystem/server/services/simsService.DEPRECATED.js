@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 
 /**
  * SIMS API Service for sending messages to students/patients
@@ -7,10 +7,10 @@ const axios = require('axios');
 
 // Initialize SIMS API client
 const simsAPI = axios.create({
-  baseURL: process.env.SIMS_API_URL || 'http://localhost:8000/api',
+  baseURL: process.env.SIMS_API_URL || "http://localhost:5000/api",
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${process.env.SIMS_API_KEY || ''}`,
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.SIMS_API_KEY || ""}`,
   },
   timeout: 5000,
 });
@@ -22,13 +22,13 @@ const simsAPI = axios.create({
 const sendAppointmentApprovalViaSims = async (studentEmail, appointment) => {
   try {
     if (!process.env.SIMS_API_URL || !process.env.SIMS_API_KEY) {
-      console.log('⚠️ SIMS API not configured. Skipping SIMS notification.');
+      console.log("⚠️ SIMS API not configured. Skipping SIMS notification.");
       return null;
     }
 
     const messagePayload = {
       recipient_email: studentEmail,
-      message_type: 'appointment_approved',
+      message_type: "appointment_approved",
       subject: `Appointment Approved: ${appointment.date}`,
       body: `Your appointment with ${appointment.providerName} (${appointment.providerRole}) has been approved for ${appointment.date} at ${appointment.time}. Please arrive 5 minutes early.`,
       appointment_id: appointment.id,
@@ -42,9 +42,9 @@ const sendAppointmentApprovalViaSims = async (studentEmail, appointment) => {
       timestamp: new Date().toISOString(),
     };
 
-    const response = await simsAPI.post('/notifications/send', messagePayload);
-    
-    console.log('✅ SIMS notification sent successfully:', {
+    const response = await simsAPI.post("/notifications/send", messagePayload);
+
+    console.log("✅ SIMS notification sent successfully:", {
       studentEmail,
       messageId: response.data.id,
       timestamp: response.data.timestamp,
@@ -53,7 +53,7 @@ const sendAppointmentApprovalViaSims = async (studentEmail, appointment) => {
     return response.data;
   } catch (err) {
     // Log error but don't fail the appointment approval
-    console.error('⚠️ SIMS notification failed:', {
+    console.error("⚠️ SIMS notification failed:", {
       studentEmail,
       error: err.message,
       status: err.response?.status,
@@ -65,18 +65,26 @@ const sendAppointmentApprovalViaSims = async (studentEmail, appointment) => {
 /**
  * Send appointment rejection message to student via SIMS
  */
-const sendAppointmentRejectionViaSims = async (studentEmail, appointment, reason = '') => {
+const sendAppointmentRejectionViaSims = async (
+  studentEmail,
+  appointment,
+  reason = ""
+) => {
   try {
     if (!process.env.SIMS_API_URL || !process.env.SIMS_API_KEY) {
-      console.log('⚠️ SIMS API not configured. Skipping SIMS notification.');
+      console.log("⚠️ SIMS API not configured. Skipping SIMS notification.");
       return null;
     }
 
     const messagePayload = {
       recipient_email: studentEmail,
-      message_type: 'appointment_rejected',
+      message_type: "appointment_rejected",
       subject: `Appointment Could Not Be Confirmed: ${appointment.date}`,
-      body: `Unfortunately, your appointment with ${appointment.providerName} for ${appointment.date} at ${appointment.time} could not be confirmed.${reason ? ` Reason: ${reason}` : ''} Please book another appointment or contact the clinic for assistance.`,
+      body: `Unfortunately, your appointment with ${
+        appointment.providerName
+      } for ${appointment.date} at ${appointment.time} could not be confirmed.${
+        reason ? ` Reason: ${reason}` : ""
+      } Please book another appointment or contact the clinic for assistance.`,
       appointment_id: appointment.id,
       appointment_details: {
         provider_name: appointment.providerName,
@@ -89,9 +97,9 @@ const sendAppointmentRejectionViaSims = async (studentEmail, appointment, reason
       timestamp: new Date().toISOString(),
     };
 
-    const response = await simsAPI.post('/notifications/send', messagePayload);
-    
-    console.log('✅ SIMS rejection notification sent successfully:', {
+    const response = await simsAPI.post("/notifications/send", messagePayload);
+
+    console.log("✅ SIMS rejection notification sent successfully:", {
       studentEmail,
       messageId: response.data.id,
       timestamp: response.data.timestamp,
@@ -99,7 +107,7 @@ const sendAppointmentRejectionViaSims = async (studentEmail, appointment, reason
 
     return response.data;
   } catch (err) {
-    console.error('⚠️ SIMS rejection notification failed:', {
+    console.error("⚠️ SIMS rejection notification failed:", {
       studentEmail,
       error: err.message,
       status: err.response?.status,
@@ -114,14 +122,16 @@ const sendAppointmentRejectionViaSims = async (studentEmail, appointment, reason
 const getStudentFromSims = async (studentEmail) => {
   try {
     if (!process.env.SIMS_API_URL || !process.env.SIMS_API_KEY) {
-      console.log('⚠️ SIMS API not configured.');
+      console.log("⚠️ SIMS API not configured.");
       return null;
     }
 
-    const response = await simsAPI.get(`/students/search?email=${studentEmail}`);
+    const response = await simsAPI.get(
+      `/students/search?email=${studentEmail}`
+    );
     return response.data;
   } catch (err) {
-    console.error('⚠️ Failed to fetch student from SIMS:', err.message);
+    console.error("⚠️ Failed to fetch student from SIMS:", err.message);
     return null;
   }
 };
@@ -132,7 +142,7 @@ const getStudentFromSims = async (studentEmail) => {
 const syncAppointmentToStudentRecord = async (studentEmail, appointment) => {
   try {
     if (!process.env.SIMS_API_URL || !process.env.SIMS_API_KEY) {
-      console.log('⚠️ SIMS API not configured. Skipping sync.');
+      console.log("⚠️ SIMS API not configured. Skipping sync.");
       return null;
     }
 
@@ -149,16 +159,19 @@ const syncAppointmentToStudentRecord = async (studentEmail, appointment) => {
       },
     };
 
-    const response = await simsAPI.post('/students/sync-appointment', syncPayload);
-    
-    console.log('✅ Appointment synced to SIMS:', {
+    const response = await simsAPI.post(
+      "/students/sync-appointment",
+      syncPayload
+    );
+
+    console.log("✅ Appointment synced to SIMS:", {
       studentEmail,
       appointmentId: appointment.id,
     });
 
     return response.data;
   } catch (err) {
-    console.error('⚠️ Failed to sync appointment to SIMS:', err.message);
+    console.error("⚠️ Failed to sync appointment to SIMS:", err.message);
     return null;
   }
 };
